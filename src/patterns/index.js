@@ -5,9 +5,7 @@ class Toggle extends Component {
   state = {on: false}
   toggle = () => this.setState(
     ({on}) => ({on: !on}),
-    () => {
-      this.props.onToggle(this.state.on)
-    },
+    () => this.props.onToggle(this.state.on)
   )
 
   //0.basic render
