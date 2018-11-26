@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ReactRouterCompleteGuide from './reactRouterCompleteGuide'
+import ReactRouterCompleteGuide from './reacttraining-router/reactRouterCompleteGuide'
 //import Gists from './reacttraining-router/gist'
 //import Usage from './patterns/'
 import Usage from './patterns/index3'

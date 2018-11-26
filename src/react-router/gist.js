@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
-import {BrowserRouter as Router, Route, Link, NavLink, Redirect, Prompt} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
+// https://v.youku.com/v_show/id_XMzExMzg3NDQyMA==.html?spm=a2h0k.11417342.soresults.dtitle
 //TODO: which responsive CSS components does it use?
 // LoadFile, Sidebar, Router...?
 class Gists extends Component {
@@ -20,8 +21,8 @@ class Gists extends Component {
     const {gists} = this.state
     return (
       <Router>
-        <Fragment>
-          <ul className="side-bar" style={{float: 'left'}}>
+        <div style={{display: 'flex', width: '30%', padding: "12px"}}>
+          <ul style={{listStyle: "none", padding: 0}}>
             {gists && Array.isArray(gists) ? gists.map(gist => (
                 <li key={gist.id}>
                   <Link to={`/g/${gist.id}`}>
@@ -33,12 +34,15 @@ class Gists extends Component {
               )
             }
           </ul>
-          <div className="main">
-            <Route exact path="/" render={() => <h1>Welcome</h1>}/>
-            <Route path="/g/:gistid" component={Gist}/>
-            {/*<Route path="/g/:gistid" router={match =><h2>Welcome Route {match.params.gistid}</h2>}/>*/}
-          </div>
-        </Fragment>
+        </div>
+        <div style={{flex: 1, padding: "10px"}}>
+          <Route exact path="/" render={() => <h1>Welcome</h1>}/>
+          {gists && (
+            <Route path="/g/:gistId" router={({match}) => (
+              <Gist gist={gists.find(g => g.id === match.params.gistId) }/>
+            )}/>
+          )}
+        </div>
       </Router>
     )
   }
