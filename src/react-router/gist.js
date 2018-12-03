@@ -21,28 +21,30 @@ class Gists extends Component {
     const {gists} = this.state
     return (
       <Router>
-        <div style={{display: 'flex', width: '30%', padding: "12px"}}>
-          <ul style={{listStyle: "none", padding: 0}}>
-            {gists && Array.isArray(gists) ? gists.map(gist => (
-                <li key={gist.id}>
-                  <Link to={`/g/${gist.id}`}>
-                    {gist.description || '[No Description]'}
-                  </Link>
-                </li>
-              )) : (
-                <div>Loading...</div>
-              )
-            }
-          </ul>
-        </div>
-        <div style={{flex: 1, padding: "10px"}}>
-          <Route exact path="/" render={() => <h1>Welcome</h1>}/>
-          {gists && (
-            <Route path="/g/:gistId" router={({match}) => (
-              <Gist gist={gists.find(g => g.id === match.params.gistId) }/>
-            )}/>
-          )}
-        </div>
+        <Fragment>
+          <div className="flex-container" style={{width: '30%', padding: "10px"}}>
+            <ul style={{listStyle: "none", padding: 0}}>
+              {gists && Array.isArray(gists) ? gists.map(gist => (
+                  <li key={gist.id}>
+                    <Link to={`/g/${gist.id}`}>
+                      {gist.description || '[No Description]'}
+                    </Link>
+                  </li>
+                )) : (
+                  <div>Loading...</div>
+                )
+              }
+            </ul>
+          </div>
+          <div style={{flex: 1, padding: "10px"}}>
+            <Route exact path="/" render={() => <h1>Welcome</h1>}/>
+            {gists && (
+              <Route path="/g/:gistId" router={({match}) => (
+                <Gist gist={gists.find(g => g.id === match.params.gistId) }/>
+              )}/>
+            )}
+          </div>
+        </Fragment>
       </Router>
     )
   }
@@ -55,9 +57,9 @@ const Gist = ({gist}) => {
         {Object.keys(gist.files).map(key => (
           <li>
             <b>{key}</b>
-            <LoadFile url={gist.files[key].raw_url}>
+            <a href={gist.files[key].raw_url}>
               {(text) => (<pre>{text}</pre>)}
-            </LoadFile>
+            </a>
           </li>
         ))}
       </ul>

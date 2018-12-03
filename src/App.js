@@ -1,19 +1,25 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+
 import logo from './logo.svg';
 import './App.css';
-import ReactRouterCompleteGuide from './reacttraining-router/reactRouterCompleteGuide'
-//import Gists from './reacttraining-router/gist'
+import ReactRouterCompleteGuide from './react-router/reactRouterCompleteGuide'
 //import Usage from './patterns/'
-import Usage from './patterns/index3'
+import Usage from './patterns/index'
+import Gists from './react-router/gist'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Usage/>
-        {/*<ReactRouterCompleteGuide/>*/}
-        {/*<Gists />*/}
-      </div>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path="/" component={Usage}/>
+            <Route path="/demo" component={ReactRouterCompleteGuide}/>
+            <Route path="/gists" component={Gists}/>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

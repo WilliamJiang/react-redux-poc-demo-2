@@ -46,3 +46,47 @@ Notice:
 
 Advanced React Patterns
 ------------------------
+
+
+
+FormData, Form submit
+------------
+
+1. form submit with "Content-Type=application/json"
+----------------------------------------------------
+```javascript
+  fetch('/api/account/signup', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(this.state)
+  })
+```
+
+Server-side uses `body-parser` to parse:
+```javascript
+// parse application/json
+app.use(bodyParser.json());
+```
+
+2. formData
+-------------
+```javascript
+  fetch('/api/account/signup', {
+    method: 'POST',
+    body: data
+  })
+```
+
+Server-side uses `parseFormdata` to parse <code>FormData: default Content-Type:	multipart/form-data</code>
+```javascript
+  router.post('/signup', (req, res, next) => {
+    // this is the solution for 'formData'.
+    parseFormdata(req, (err, data) => {
+      console.log('formData, multipart/form-data: ', data.fields, data.parts);
+    })
+   });
+```
+
+
