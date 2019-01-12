@@ -9,7 +9,11 @@ class Toggle extends Component {
   )
 
   //0.basic render
-  render() {
+  render0() {
+    return this.renderSwitch4()
+  }
+
+  renderSwitch4() {
     return (
       <Switch on={this.state.on} onClick={this.toggle}/>
     )
@@ -44,7 +48,8 @@ class Toggle extends Component {
   }
 
   render3() {
-    return this.renderSwitch3({on: this.state.on, toggle: this.toggle})
+    const prop = {on: this.state.on, toggle: this.toggle}
+    return this.renderSwitch3(prop)
   }
 
   //4.
@@ -58,7 +63,7 @@ class Toggle extends Component {
   }
 
   //6.
-  render6() {
+  render() {
     return this.props.children({on: this.state.on, toggle: this.toggle})
   }
 }
@@ -109,15 +114,30 @@ const Usage6_1 = ({onToggle = (...args) => console.log('William on Toggle... ', 
   )
 }
 
+const handleClick = (id, e) => {
+  console.log('handleClick', e)
+}
+function handleClick1(id) {
+  return function (e) {
+    console.log('handleClick1', e, id)
+  }
+}
+
 const Usage = ({onToggle = (...args) => console.log('William on Toggle... ', ...args)}) => {
+  const id = 'HSBC';
   return (
-    <Toggle onToggle={onToggle}>
-      {({on, toggle}) => <Switch on={on} onClick={toggle}/>}
-    </Toggle>
+    <Fragment>
+      <Toggle onToggle={onToggle}>
+        {({on, toggle}) => <Switch on={on} onClick={toggle}/>}
+      </Toggle>
+      <button type="button" onClick={(e) => handleClick(id, e)}/>
+      Button
+    </Fragment>
+
   )
 }
 
 const OldUsage = Usage1;
 
 //export default Usage;
-export {Toggle, OldUsage as default};
+export {Toggle, Usage as default};

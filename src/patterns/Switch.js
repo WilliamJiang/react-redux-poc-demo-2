@@ -1,6 +1,7 @@
 import React from 'react';
 
 //toggle is from props?
+// export const Switch = ({on, onClick})
 export const Switch = props => {
   const {on, ...rest} = props;
   const ss = on ? 'On' : 'Off';
